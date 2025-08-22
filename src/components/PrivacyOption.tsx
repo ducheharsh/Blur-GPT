@@ -21,7 +21,10 @@ export function PrivacyOption({
     children
 }: PrivacyOptionProps) {
     return (
-        <div className={children ? "space-y-2" : ""}>
+        <div className={cn(
+            "transition-all duration-200 ease-in-out",
+            children ? "space-y-2" : ""
+        )}>
             <div className="flex items-center justify-between">
                 <div>
                     <label className={cn(

@@ -20,7 +20,7 @@ export function SubOption({
 }: SubOptionProps) {
     return (
         <div className={cn(
-            "flex items-center justify-between ml-4 pl-4 border-l-2",
+            "flex items-center justify-between ml-4 pl-4 border-l-2 transition-all duration-200 ease-in-out",
             currentTheme === 'dark' ? 'border-gray-700' : 'border-gray-200'
         )}>
             <div>

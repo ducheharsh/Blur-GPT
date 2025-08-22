@@ -19,8 +19,8 @@ function App() {
 
   const handleToggle = async (key: keyof UserPreferences, value: boolean | string) => {
     const newPrefs = { ...preferences, [key]: value };
-    await savePreferences(newPrefs);
 
+    // Apply effects immediately with new preferences
     if (key === 'blurChatNames' || key === 'hideChatContent' || key === 'contentHoverVisible') {
       if (newPrefs.blurChatNames || newPrefs.hideChatContent) {
         await handleApplyEffects(newPrefs.blurChatNames, newPrefs.hideChatContent, newPrefs.contentHoverVisible);
@@ -28,16 +28,15 @@ function App() {
         await handleClearEffects();
       }
     }
+
+    // Save preferences after applying effects
+    await savePreferences(newPrefs);
   };
 
-  const handleApplyEffects = async (blurNames?: boolean, hideChatContent?: boolean, contentHoverVisible?: boolean) => {
+  const handleApplyEffects = async (blurNames: boolean, hideChatContent: boolean, contentHoverVisible: boolean) => {
     setIsLoading(true);
     try {
-      await applyEffects(
-        blurNames ?? preferences.blurChatNames,
-        hideChatContent ?? preferences.hideChatContent,
-        contentHoverVisible ?? preferences.contentHoverVisible
-      );
+      await applyEffects(blurNames, hideChatContent, contentHoverVisible);
     } catch (error) {
       console.error('Error applying effects:', error);
     } finally {
@@ -70,7 +69,7 @@ function App() {
 
   return (
     <div className={cn(
-      "p-6 w-80 mx-auto min-h-screen transition-colors duration-200",
+      "p-6 w-80 mx-auto transition-colors duration-200",
       currentTheme === 'dark'
         ? 'bg-gray-900 text-white'
         : 'bg-white text-gray-900'
@@ -124,7 +123,7 @@ function App() {
       </div>
 
       <ActionButtons
-        onApply={() => handleApplyEffects()}
+        onApply={() => handleApplyEffects(preferences.blurChatNames, preferences.hideChatContent, preferences.contentHoverVisible)}
         onClear={handleClearEffects}
         isLoading={isLoading}
         isAnyEffectActive={isAnyEffectActive}
