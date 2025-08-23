@@ -1,5 +1,7 @@
 # Blur GPT - Chrome Extension
 
+https://github.com/user-attachments/assets/4d1f5063-4ecb-4677-9299-eb382d08af27
+
 A comprehensive Chrome extension that provides privacy-focused features for ChatGPT, allowing you to blur chat names and content for distraction-free and private browsing.
 
 ## Features
